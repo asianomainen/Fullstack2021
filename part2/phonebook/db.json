@@ -1,24 +1,14 @@
 {
   "persons": [
     {
-      "name": "Markus",
-      "number": "5342",
+      "name": "Antero Mertaranta",
+      "number": "040-1234567",
       "id": 1
     },
     {
-      "name": "Jorma",
-      "number": "987",
+      "name": "Jaakko Saariluoma",
+      "number": "050-7654321",
       "id": 2
-    },
-    {
-      "name": "jorma",
-      "number": "89876",
-      "id": 3
-    },
-    {
-      "name": "Metis polsk",
-      "number": "2323",
-      "id": 4
     }
   ]
 }

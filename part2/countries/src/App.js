@@ -29,7 +29,7 @@ const App = () => {
 
     return (
         <div>
-            <Search handler={handleSearch}/>
+            <Search handler={handleSearch} />
             <Countries names={countryNames} one={oneResult} search={newSearch} setSearch={setNewSearch}/>
         </div>
     )

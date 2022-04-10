@@ -1,10 +1,11 @@
 import Person from "./Person";
 
-const Numbers = ({personsToShow}) => {
+const Numbers = ({persons, search, deletePerson}) => {
+    const personsToShow = persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
     return (
         <ul>
             {personsToShow.map((person, i) =>
-                <Person key={i} person={person}/>
+                <Person key={i} person={person} deletePerson={deletePerson}/>
             )}
         </ul>
     )

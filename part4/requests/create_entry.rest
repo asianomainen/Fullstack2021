@@ -4,6 +4,5 @@ Content-Type: application/json
 {
   "title": "Martti Ahtisaaren loistelias elämä",
   "author": "Martti Ahtisaari",
-  "url": "www.google.com",
-  "likes": 15
+  "url": "www.marttiahtisaari.com/kuningas"
 }

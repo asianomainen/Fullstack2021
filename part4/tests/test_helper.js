@@ -1,4 +1,6 @@
+const Blog = require('../models/blog')
 const _ = require('lodash');
+
 
 const listWithOneBlog = [
     {
@@ -47,7 +49,6 @@ const listWithSeveralBlogs = [
         likes: 2,
     }
 ]
-
 const dummy = (blogs) => {
     return 1
 }
@@ -104,12 +105,27 @@ const mostLikes = (blogs) => {
     return amountOfLikes[amountOfLikes.length - 1]
 }
 
+const nonExistingId = async () => {
+    const blog = new Blog({ content: 'willremovethissoon', date: new Date() })
+    await blog.save()
+    await blog.remove()
+
+    return blog._id.toString()
+}
+
+const blogsInDb = async () => {
+    const blogs = await Blog.find({})
+    return blogs.map(blog => blog.toJSON())
+}
+
 module.exports = {
+    listWithOneBlog,
+    listWithSeveralBlogs,
     dummy,
     totalLikes,
     favoriteBlog,
     mostBlogs,
     mostLikes,
-    listWithOneBlog,
-    listWithSeveralBlogs
+    nonExistingId,
+    blogsInDb
 }

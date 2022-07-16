@@ -1,6 +1,6 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const _ = require('lodash');
-
 
 const listWithOneBlog = [
     {
@@ -17,38 +17,76 @@ const listWithSeveralBlogs = [
         author: "Michael Chan",
         url: "https://reactpatterns.com/",
         likes: 7,
+        //user: 'asdfadsf234234asd'
     },
     {
         title: "Go To Statement Considered Harmful",
         author: "Edsger W. Dijkstra",
         url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
         likes: 5,
+        //user: 'asthrdty5t4334434'
     },
     {
         title: "Canonical string reduction",
         author: "Edsger W. Dijkstra",
         url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
         likes: 12,
+        //user: 'brefay65yrg434432'
     },
     {
         title: "First class tests",
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
         likes: 10,
+        //user: 'dgrdutyjrh6554gr2'
     },
     {
         title: "TDD harms architecture",
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
         likes: 0,
+        //user: 'dgrdutyjrh6554gr2'
     },
     {
         title: "Type wars",
         author: "Robert C. Martin",
         url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
         likes: 2,
+        //user: 'asthrdty5t4334434'
     }
 ]
+
+const listWithOneUser = [
+    {
+        username: 'userman',
+        name: 'User Man',
+        passwordHash: 'passw0rd'
+    }
+]
+
+const listWithSeveralUsers = [
+    {
+        username: 'userman',
+        name: 'User Man',
+        passwordHash: 'passw0rd'
+    },
+    {
+        username: 'userwoman',
+        name: 'User Woman',
+        passwordHash: 'passw1rd'
+    },
+    {
+        username: 'usernonbinary',
+        name: 'User Nonbinary',
+        passwordHash: 'passw2rd'
+    },
+    {
+        username: 'Iso-M',
+        name: 'Martti Ahtisaari',
+        passwordHash: 'bigmoneymartti'
+    }
+]
+
 const dummy = (blogs) => {
     return 1
 }
@@ -118,14 +156,22 @@ const blogsInDb = async () => {
     return blogs.map(blog => blog.toJSON())
 }
 
+const usersInDb = async () => {
+    const users = await User.find({})
+    return users.map(user => user.toJSON())
+}
+
 module.exports = {
     listWithOneBlog,
     listWithSeveralBlogs,
+    listWithOneUser,
+    listWithSeveralUsers,
     dummy,
     totalLikes,
     favoriteBlog,
     mostBlogs,
     mostLikes,
     nonExistingId,
-    blogsInDb
+    blogsInDb,
+    usersInDb
 }

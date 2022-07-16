@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1HiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJtYW4iLCJpZCI6IjYyZDE0OTMyMjhiNjMzOTBiMzMzYWY2ZCIsImlhdCI6MTY1Nzg4ODEzN30.wb1v3p5WR3cApEBdi2cYhd16FLlhvToFrHELssanwgM
+
+{
+  "title": "Toimi plz",
+  "author": "USERMAN",
+  "url": "url.here"
+}

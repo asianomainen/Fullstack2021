@@ -17,7 +17,8 @@ blogsRouter.post('/', async (request, response) => {
     if (!decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
-    const user = await User.findById(decodedToken.id)
+
+    const user = request.user
 
     if (body.title === undefined || body.url === undefined) {
         return response.status(400).json({
@@ -47,8 +48,8 @@ blogsRouter.delete('/:id', async (request, response) => {
     if (!decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
     }
-    const user = await User.findById(decodedToken.id)
 
+    const user = request.user
     const blog = await Blog.findById(request.params.id)
 
     if (!(blog.user.toString() === user.id.toString())) {
@@ -60,17 +61,31 @@ blogsRouter.delete('/:id', async (request, response) => {
 })
 
 blogsRouter.put('/:id', async (request, response) => {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (!decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
+
+    const user = request.user
+    const blog = await Blog.findById(request.params.id)
+
+    console.log('GOT UP TO HERE!');
+
+    if (!(blog.user.toString() === user.id.toString())) {
+        return response.status(401).json({ error: 'only the orignal poster can update a blog' })
+    }
+
     const body = request.body
 
-    const blog = {
+    const updatedBlog = {
         title: body.title,
         author: body.author,
         url: body.url,
         likes: body.likes || 0
     }
 
-    await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-    response.status(201).json(blog)
+    await Blog.findByIdAndUpdate(request.params.id, updatedBlog, { new: true })
+    response.status(201).json(updatedBlog)
 })
 
 module.exports = blogsRouter

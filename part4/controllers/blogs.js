@@ -69,8 +69,6 @@ blogsRouter.put('/:id', async (request, response) => {
     const user = request.user
     const blog = await Blog.findById(request.params.id)
 
-    console.log('GOT UP TO HERE!');
-
     if (!(blog.user.toString() === user.id.toString())) {
         return response.status(401).json({ error: 'only the orignal poster can update a blog' })
     }

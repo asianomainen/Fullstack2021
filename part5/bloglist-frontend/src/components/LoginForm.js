@@ -1,5 +1,5 @@
-import Notification from './Notification'
 import PropTypes from 'prop-types'
+import Notification from './Notification'
 import Togglable from './Togglable'
 
 const LoginForm = ({

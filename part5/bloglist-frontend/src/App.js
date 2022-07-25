@@ -67,13 +67,11 @@ const App = () => {
     setUser(null)
   }
 
-  const handleAddBlog = async (event) => {
+  const handleAddBlog = async (event, blog) => {
     event.preventDefault()
 
     try {
-      const newBlog = await blogService.create({
-        title, author, url
-      })
+      const newBlog = await blogService.create(blog)
 
       const loggedUser = JSON.parse(window.localStorage.getItem('loggedUser'))
 
@@ -83,10 +81,7 @@ const App = () => {
       }
 
       setBlogs(blogs.concat(newBlog))
-      notify(`a new blog ${title} by ${author} added`)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
+      notify(`a new blog ${blog.title} by ${blog.author} added`)
     } catch (e) {
       notify('Something went wrong with adding the blog', 'alert')
     }
@@ -155,18 +150,12 @@ const App = () => {
         <Notification notification={notification} />
         <div>
           {user.name} is logged in
-          <button onClick={handleLogout}>Logout</button>
+          <button id='logout-button' onClick={handleLogout}>Logout</button>
         </div>
         <br />
         <Togglable buttonLabel='New blog'>
           <BlogForm
             handleAddBlog={handleAddBlog}
-            setTitle={setTitle}
-            setAuthor={setAuthor}
-            setUrl={setUrl}
-            title={title}
-            author={author}
-            url={url}
           />
         </Togglable>
         <br />

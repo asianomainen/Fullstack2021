@@ -5,22 +5,22 @@ const BlogForm = ({ handleAddBlog }) => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value)
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value)
   }
 
-  const handleAuthorChange = (e) => {
-    setAuthor(e.target.value)
+  const handleAuthorChange = (event) => {
+    setAuthor(event.target.value)
   }
 
-  const handleUrlChange = (e) => {
-    setUrl(e.target.value)
+  const handleUrlChange = (event) => {
+    setUrl(event.target.value)
   }
 
-  const addBlog = (e) => {
-    e.preventDefault()
+  const addBlog = (event) => {
+    event.preventDefault()
 
-    handleAddBlog({
+    handleAddBlog(event, {
       title: title,
       author: author,
       url: url

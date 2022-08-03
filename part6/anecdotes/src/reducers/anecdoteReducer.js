@@ -28,10 +28,11 @@ const reducer = (state = initialState, action) => {
     case 'VOTE':
       const updatedAnecdote = updatedState.find(anecdote => anecdote.id === action.data.id)
       updatedAnecdote.votes += 1
-      return state = _.sortBy(updatedState, ['votes']).reverse()
+      return state = _.orderBy(updatedState, ['votes'], ['desc'])
     case 'ADD':
       return state.concat(action.data)
-    default: return state
+    default:
+      return state
   }
 }
 

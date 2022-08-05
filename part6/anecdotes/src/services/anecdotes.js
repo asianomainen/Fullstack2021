@@ -8,14 +8,20 @@ const getAll = async () => {
 }
 
 const createNew = async (content) => {
-  const object = { content, votes: 0 }
-  const response = await axios.post(baseUrl, object)
+  const anecdote = { content, votes: 0 }
+  const response = await axios.post(baseUrl, anecdote)
+  return response.data
+}
+
+const updateAnecdote = async (anecdote) => {
+  const response = await axios.put(`${baseUrl}/${anecdote.id}`, anecdote)
   return response.data
 }
 
 const serverConnection = {
   getAll,
-  createNew
+  createNew,
+  updateAnecdote
 }
 
 export default serverConnection

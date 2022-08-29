@@ -54,7 +54,7 @@ const Authors = ({ show }) => {
 
         <form onSubmit={submit}>
           <select onChange={({ target }) => setName(target.value)}>
-            {authors.data.allAuthors.map((author) => (
+            {authors.data.allAuthors.map((author, i) => (
               <option key={author.name} value={author.name}>
                 {author.name}
               </option>

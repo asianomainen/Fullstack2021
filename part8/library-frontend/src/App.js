@@ -17,7 +17,7 @@ const App = () => {
     if (!token) {
       setPage('login')
     }
-  }, [])
+  }, [token])
 
   const notify = (message) => {
     setErrorMessage(message)

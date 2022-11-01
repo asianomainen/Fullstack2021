@@ -21,10 +21,8 @@ const findById = (id: string): Patient | undefined => {
 };
 
 const addPatient = (entry: NewPatientEntry): Patient => {
-  const randomId: string = uuid();
-
   const newPatientEntry = {
-    id: randomId,
+    id: uuid(),
     ...entry
   };
 

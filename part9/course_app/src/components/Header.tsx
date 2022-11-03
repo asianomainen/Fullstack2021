@@ -2,7 +2,7 @@ interface Props {
   name: string
 }
 
-const Header = ({name}: Props): JSX.Element => {
+const Header = ({ name }: Props): JSX.Element => {
   return <h1>{name}</h1>
 }
 

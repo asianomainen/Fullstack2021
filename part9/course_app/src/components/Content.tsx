@@ -1,19 +1,17 @@
-interface Course {
-  name: string,
-  exerciseCount: number
-}
+import Part from "./Part";
+import { CoursePart } from "../types";
 
 interface CourseArray {
-  courses: Array<Course>
+  courses: Array<CoursePart>
 }
 
-const Content = ({courses}: CourseArray): JSX.Element => {
+const Content = ({ courses }: CourseArray): JSX.Element => {
   return (
-    <>
+    <div>
       {courses.map(course =>
-        <p key={course.name}>{course.name} {course.exerciseCount}</p>
+        <Part key={course.name} course={course}/>
       )}
-    </>
+    </div>
   )
 }
 

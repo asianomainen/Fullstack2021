@@ -1,6 +1,6 @@
-import {Gender, NewPatientEntry} from "./types";
+import { Gender, NewPatientEntry } from "./types";
 
-type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown };
+type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown, entries: unknown };
 
 const toNewPatientEntry = ({name, dateOfBirth, ssn, gender, occupation}: Fields): NewPatientEntry => {
   return {
@@ -8,7 +8,8 @@ const toNewPatientEntry = ({name, dateOfBirth, ssn, gender, occupation}: Fields)
     dateOfBirth: parseIsString(dateOfBirth),
     ssn: parseIsString(ssn),
     gender: parseGender(gender),
-    occupation: parseIsString(occupation)
+    occupation: parseIsString(occupation),
+    entries: []
   };
 };
 

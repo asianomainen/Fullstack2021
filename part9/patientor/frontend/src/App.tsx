@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
-import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
-import {Button, Container, Divider, Typography} from "@material-ui/core";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import { Button, Container, Divider, Typography } from "@material-ui/core";
 
-import {apiBaseUrl} from "./constants";
-import {useStateValue} from "./state";
-import {Patient} from "./types";
+import { apiBaseUrl } from "./constants";
+import { setPatientList, useStateValue } from "./state";
+import { Patient } from "./types";
 
 import PatientListPage from "./PatientListPage";
+import SinglePatientPage from "./SinglePatientPage";
 
 const App = () => {
   const [, dispatch] = useStateValue();
@@ -16,10 +17,10 @@ const App = () => {
 
     const fetchPatientList = async () => {
       try {
-        const {data: patientListFromApi} = await axios.get<Patient[]>(
+        const { data: patientListFromApi } = await axios.get<Patient[]>(
           `${apiBaseUrl}/patients`
         );
-        dispatch({type: "SET_PATIENT_LIST", payload: patientListFromApi});
+        dispatch(setPatientList(patientListFromApi));
       } catch (e) {
         console.error(e);
       }
@@ -31,15 +32,16 @@ const App = () => {
     <div className="App">
       <Router>
         <Container>
-          <Typography variant="h3" style={{marginBottom: "0.5em"}}>
+          <Typography variant="h3" style={{ marginBottom: "0.5em" }}>
             Patientor
           </Typography>
           <Button component={Link} to="/" variant="contained" color="primary">
             Home
           </Button>
-          <Divider hidden/>
+          <Divider hidden />
           <Routes>
-            <Route path="/" element={<PatientListPage/>}/>
+            <Route path="/" element={<PatientListPage />} />
+            <Route path="/api/patients/:id" element={<SinglePatientPage />} />
           </Routes>
         </Container>
       </Router>

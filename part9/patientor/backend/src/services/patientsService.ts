@@ -1,10 +1,11 @@
-import patientsData from '../data/patients.json';
-import {v1 as uuid} from 'uuid';
+import patients2 from '../data/patients';
+import patients3 from '../data/patients';
+import { v1 as uuid } from 'uuid';
 
-import {NewPatientEntry, Patient, SsnRemovedPatient} from "../types";
+import { NewPatientEntry, Patient, SsnRemovedPatient } from "../types";
 
-const ssnRemovedPatients: Array<SsnRemovedPatient> = patientsData;
-const patients: Array<Patient> = patientsData;
+const ssnRemovedPatients: Array<SsnRemovedPatient> = patients3;
+const patients: Array<Patient> = patients2;
 
 const getPatients = (): Array<SsnRemovedPatient> => {
   return ssnRemovedPatients.map(({id, name, dateOfBirth, gender, occupation}) => ({

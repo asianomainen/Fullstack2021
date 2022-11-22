@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import { ErrorMessage, Field, FieldProps, FormikProps } from "formik";
-import {
-  Select,
-  FormControl,
-  MenuItem,
-  TextField as TextFieldMUI,
-  Typography,
-} from "@material-ui/core";
-import { Diagnosis, Gender } from "../types";
-import { InputLabel } from "@material-ui/core";
+import { FormControl, InputLabel, MenuItem, Select, TextField as TextFieldMUI, Typography, } from "@material-ui/core";
+import { Diagnosis, EntryType, Gender, HealthCheckRating } from "../types";
 import Input from '@material-ui/core/Input';
 
 // structure of a single option
@@ -17,12 +10,37 @@ export type GenderOption = {
   label: string;
 };
 
-// props for select field component
-type SelectFieldProps = {
+export type TypeOption = {
+  value: EntryType;
+  label: string;
+};
+
+export type HealthCheckRatingOption = {
+  value: HealthCheckRating;
+  label: number;
+};
+
+interface BaseSelectField {
   name: string;
   label: string;
+}
+
+interface GenderSelectField extends BaseSelectField {
   options: GenderOption[];
-};
+}
+
+interface TypeSelectField extends BaseSelectField {
+  options: TypeOption[];
+}
+
+interface HealthCheckRatingSelectField extends BaseSelectField {
+  options: HealthCheckRatingOption[];
+}
+
+type SelectFieldProps =
+  | GenderSelectField
+  | TypeSelectField
+  | HealthCheckRatingSelectField;
 
 const FormikSelect = ({ field, ...props }: FieldProps) => <Select {...field} {...props} />;
 
@@ -91,7 +109,7 @@ export const NumberField = ({ field, label, min, max }: NumberProps) => {
           if (value > max) setValue(max);
           else if (value <= min) setValue(min);
           else setValue(Math.floor(value));
-      }}
+        }}
       />
       <Typography variant="subtitle2" style={{ color: "red" }}>
         <ErrorMessage name={field.name} />
@@ -101,17 +119,17 @@ export const NumberField = ({ field, label, min, max }: NumberProps) => {
 };
 
 export const DiagnosisSelection = ({
-  diagnoses,
-  setFieldValue,
-  setFieldTouched,
-}: {
+                                     diagnoses,
+                                     setFieldValue,
+                                     setFieldTouched,
+                                   }: {
   diagnoses: Diagnosis[];
   setFieldValue: FormikProps<{ diagnosisCodes: string[] }>["setFieldValue"];
   setFieldTouched: FormikProps<{ diagnosisCodes: string[] }>["setFieldTouched"];
 }) => {
   const [selectedDiagnoses, setDiagnoses] = useState<string[]>([]);
   const field = "diagnosisCodes";
-  const onChange = (data: string[]) => {    
+  const onChange = (data: string[]) => {
     setDiagnoses([...data]);
     setFieldTouched(field, true);
     setFieldValue(field, selectedDiagnoses);
@@ -126,7 +144,8 @@ export const DiagnosisSelection = ({
   return (
     <FormControl style={{ width: 552, marginBottom: '30px' }}>
       <InputLabel>Diagnoses</InputLabel>
-      <Select multiple value={selectedDiagnoses} onChange={(e) => onChange(e.target.value as string[])} input={<Input />}>
+      <Select multiple value={selectedDiagnoses} onChange={(e) => onChange(e.target.value as string[])}
+              input={<Input />}>
         {stateOptions.map((option) => (
           <MenuItem key={option.key} value={option.value}>
             {option.text}

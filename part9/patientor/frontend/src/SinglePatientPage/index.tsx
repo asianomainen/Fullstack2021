@@ -8,10 +8,41 @@ import axios from "axios";
 import { Diagnosis, Patient } from "../types";
 import { apiBaseUrl } from "../constants";
 import EntryDetails from "./EntryDetails";
+import { Button } from "@material-ui/core";
+import AddEntryModal from "../AddEntryModal";
+import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
 
 const SinglePatientPage = () => {
   const [{ patient, diagnoses }, dispatch] = useStateValue();
   const { id } = useParams<{ id: string }>();
+
+  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string>();
+
+  const openModal = (): void => setModalOpen(true);
+
+  const closeModal = (): void => {
+    setModalOpen(false);
+    setError(undefined);
+  };
+
+  const addNewEntry = async (values: EntryFormValues) => {
+    try {
+      const { data: updatedPatient } = await axios.post<Patient>(
+        `${apiBaseUrl}/patients/${id}/entries`,
+        values
+      );
+
+      if (id) {
+        dispatch(setPatient(updatedPatient));
+      }
+
+      closeModal();
+    } catch (e) {
+      console.error(e.response.data);
+      setError(e.response.data.error);
+    }
+  }
 
   React.useEffect(() => {
     const fetchPatient = async () => {
@@ -74,6 +105,18 @@ const SinglePatientPage = () => {
 
         <h4>entries</h4>
         {patient?.entries.map(entry => <EntryDetails entry={entry} />)}
+
+        <div>
+          <AddEntryModal
+            modalOpen={modalOpen}
+            onSubmit={addNewEntry}
+            error={error}
+            onClose={closeModal}
+          />
+          <Button variant="contained" color="primary" onClick={() => openModal()}>
+            Add new entry
+          </Button>
+        </div>
       </div>)}
     </div>
   );

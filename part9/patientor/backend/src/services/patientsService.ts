@@ -2,13 +2,13 @@ import patients2 from '../data/patients';
 import patients3 from '../data/patients';
 import { v1 as uuid } from 'uuid';
 
-import { NewPatientEntry, Patient, SsnRemovedPatient } from "../types";
+import { NewEntry, NewPatientEntry, Patient, SsnRemovedPatient } from "../types";
 
 const ssnRemovedPatients: Array<SsnRemovedPatient> = patients3;
 const patients: Array<Patient> = patients2;
 
 const getPatients = (): Array<SsnRemovedPatient> => {
-  return ssnRemovedPatients.map(({id, name, dateOfBirth, gender, occupation}) => ({
+  return ssnRemovedPatients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
     name,
     dateOfBirth,
@@ -31,8 +31,19 @@ const addPatient = (entry: NewPatientEntry): Patient => {
   return newPatientEntry;
 };
 
+const addEntry = (patient: Patient, entry: NewEntry): Patient => {
+  const newEntry = {
+    id: uuid(),
+    ...entry,
+  };
+
+  patient.entries.push(newEntry);
+  return patient;
+};
+
 export default {
   getPatients,
   findById,
-  addPatient
+  addPatient,
+  addEntry
 };
